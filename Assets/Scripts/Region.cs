@@ -91,6 +91,18 @@ public class Region : MonoBehaviour
             Vector2 canvasPosition;
             var rectTransform = _statusPanel.GetComponent<RectTransform>();
             rectTransform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+
+            // Adjust so it is definitely within screen bounds
+            var statusPanelWidth = rectTransform.sizeDelta.x;
+            var statusPanelHeight = rectTransform.sizeDelta.y;
+            var screenPositionX = wellScreenPosition.x;
+            var screenPositionY = wellScreenPosition.y;
+            screenPositionY = Math.Min(screenPositionY + statusPanelHeight / 2, Camera.main.scaledPixelHeight) - statusPanelHeight / 2;
+            screenPositionY = Math.Max(screenPositionY - statusPanelHeight / 2, 0) + statusPanelHeight / 2;
+            screenPositionX = Math.Min(screenPositionX + statusPanelWidth / 2, Camera.main.scaledPixelWidth) - statusPanelHeight / 2;
+            screenPositionX = Math.Max(screenPositionX - statusPanelWidth / 2, 0) + statusPanelHeight / 2;
+            wellScreenPosition = new Vector2(screenPositionX, screenPositionY);
+
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, wellScreenPosition, null, out canvasPosition);
             rectTransform.localPosition = canvasPosition;
             _statusUi.SetActive(true);
