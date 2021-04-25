@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using System.IO;
+using System.Linq;
 
 public class OilWell : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class OilWell : MonoBehaviour
     // Per 100 feet
     private double _blowoutChanceFactor = 1.1;
     public Sprite BlowoutSprite;
+    private AudioSource _audioSource;
+    private AudioClip _blowoutSound;
 
     private double _timePassed = 0;
 
@@ -40,8 +43,11 @@ public class OilWell : MonoBehaviour
         _statusUi = transform.Find("StatusUI").gameObject;
         _statusPanel = _statusUi.transform.Find("StatusPanel").gameObject;
 
+        _audioSource = GameObject.FindObjectOfType<AudioSource>();
+        _blowoutSound = (AudioClip)Resources.Load("Sounds/Blowout");
+
         _upgradePrefab = (GameObject)Resources.Load("Prefabs/Upgrade");
-        var upgradeData = JsonUtility.FromJson<UpgradesData>(File.ReadAllText(@"wellUpgrades.json"));
+        var upgradeData = JsonUtility.FromJson<UpgradesData>(File.ReadAllText($"{Application.streamingAssetsPath}/wellUpgrades.json"));
         CreateUpgrades(upgradeData.Upgrades);
     }
 
@@ -127,7 +133,10 @@ public class OilWell : MonoBehaviour
     {
         var renderer = GetComponent<SpriteRenderer>();
         renderer.sprite = BlowoutSprite;
-        //TODO: Sound
+        if (!_audioSource.isPlaying)
+        {
+            _audioSource.PlayOneShot(_blowoutSound);
+        }
         Destroy(this);
     }
 
@@ -185,9 +194,12 @@ public class OilWell : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && isActiveAndEnabled && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)
+            && !EventSystem.current.IsPointerOverGameObject()
+            && isActiveAndEnabled
+            && FindObjectOfType<Placer>() == null
+            && GameObject.FindGameObjectsWithTag("SingleModal").All(x => !x.activeSelf))
         {
-
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit.collider != null && hit.collider.gameObject == gameObject)

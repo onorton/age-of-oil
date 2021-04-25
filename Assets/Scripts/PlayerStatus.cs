@@ -29,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
         _globalUpgradesItems = GameObject.Find("MainUI/RightRegion/UpgradesPanel/Items");
 
         _upgradePrefab = (GameObject)Resources.Load("Prefabs/Upgrade");
-        var upgradeData = JsonUtility.FromJson<UpgradesData>(File.ReadAllText(@"playerUpgrades.json"));
+        var upgradeData = JsonUtility.FromJson<UpgradesData>(File.ReadAllText($"{Application.streamingAssetsPath}/playerUpgrades.json"));
         CreateUpgrades(upgradeData.Upgrades);
     }
 
@@ -75,6 +75,15 @@ public class PlayerStatus : MonoBehaviour
         }
         _upgrades.Remove(upgrade.Name);
         upgradeApplied.Invoke();
+
+        if (_upgrades.Count == 0)
+        {
+            var upgradesPanel = _globalUpgradesItems.transform.parent.gameObject;
+            if (upgradesPanel != null)
+            {
+                Destroy(upgradesPanel.gameObject);
+            }
+        }
     }
 
     void Start()

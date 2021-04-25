@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 public class Region : MonoBehaviour
@@ -61,7 +62,7 @@ public class Region : MonoBehaviour
         placer.DisabledComponentsUntilPlaced = new List<Behaviour> { oilWell.GetComponent<OilWell>() };
         var bounds = transform.GetComponent<BoxCollider2D>().bounds;
 
-        bounds.extents = new Vector3(bounds.extents.x - 0.5f, bounds.extents.y - 0.5f, bounds.extents.z);
+        bounds.extents = new Vector3(bounds.extents.x - 0.25f, bounds.extents.y - 0.25f, bounds.extents.z);
         placer.Bounds = bounds;
     }
 
@@ -80,8 +81,11 @@ public class Region : MonoBehaviour
 
     void OnMouseDown()
     {
-        // Only activate if region in front
-        if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
+        // Only activate if not placing anything no other modals open
+        if (Input.GetMouseButtonDown(0)
+            && !EventSystem.current.IsPointerOverGameObject()
+            && FindObjectOfType<Placer>() == null
+            && GameObject.FindGameObjectsWithTag("SingleModal").All(x => !x.activeSelf))
         {
             Vector2 wellScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
             Vector2 canvasPosition;
@@ -95,13 +99,18 @@ public class Region : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (!_statusUi.activeSelf && !EventSystem.current.IsPointerOverGameObject())
+        if (!_statusUi.activeSelf
+            && !EventSystem.current.IsPointerOverGameObject()
+            && FindObjectOfType<Placer>() == null
+            && GameObject.FindGameObjectsWithTag("SingleModal").All(x => !x.activeSelf))
         {
             _renderer.material = _highlighted;
+            _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 0.3f);
         }
         else
         {
             _renderer.material = _normal;
+            _renderer.color = new Color(_renderer.color.r, _renderer.color.g, _renderer.color.b, 0.0f);
         }
     }
 

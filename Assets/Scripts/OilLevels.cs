@@ -6,10 +6,10 @@ public class OilLevels
 {
     private IDictionary<int, double> _barrelsPerLevel;
 
+    private static Random random = new Random();
+
     public OilLevels()
     {
-        var random = new Random();
-
         _barrelsPerLevel = new Dictionary<int, double>();
 
         var numberOfLevels = random.Next(3, 15);
@@ -24,9 +24,8 @@ public class OilLevels
 
     private double normalSample(double mean, double stdDev)
     {
-        Random rand = new Random();
-        double u1 = 1.0 - rand.NextDouble();
-        double u2 = 1.0 - rand.NextDouble();
+        double u1 = 1.0 - random.NextDouble();
+        double u2 = 1.0 - random.NextDouble();
         double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
                      Math.Sin(2.0 * Math.PI * u2);
         return mean + stdDev * randStdNormal;
@@ -87,11 +86,10 @@ public class OilLevels
 
     public string Prospect(double accuracy)
     {
-        var random = new Random();
         var maximumProspectingDepth = 1000 * accuracy;
 
         var seenTotalSoFar = 0.0;
-        var results = "";
+        var results = "Estimated:";
         List<int> depthsInOrder = _barrelsPerLevel.Keys.OrderBy(a => a).ToList();
         foreach (var depth in depthsInOrder)
         {
@@ -107,7 +105,7 @@ public class OilLevels
 
             seenTotalSoFar += seenAmount;
             var formattedTotal = string.Format("{0:0.} barrels", seenTotalSoFar);
-            results += $"Up to {depth}ft: {formattedTotal}\n";
+            results += $"\nUp to {depth}ft: {formattedTotal}";
         }
 
         return results;

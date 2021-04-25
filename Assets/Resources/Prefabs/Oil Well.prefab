@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 1394557235554358852}
   m_Layer: 5
   m_Name: StatusUI
-  m_TagString: Untagged
+  m_TagString: SingleModal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -887,6 +887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _purchasable: {fileID: 1890312035405175212}
+  PurchaseSound: {fileID: 0}
   PrefixedTest: +100ft
 --- !u!114 &7773170818236984246
 MonoBehaviour:

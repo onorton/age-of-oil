@@ -30,7 +30,7 @@ public class PurchaseButton : MonoBehaviour
         {
             PurchaseSound = (AudioClip)Resources.Load("Sounds/Purchase");
         }
-
+        SetText();
     }
 
     void UpdateButtonStatus(double amount)

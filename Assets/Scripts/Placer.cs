@@ -40,7 +40,6 @@ public class Placer : MonoBehaviour
         _audioSource = GameObject.FindObjectOfType<AudioSource>();
         _errorSound = (AudioClip)Resources.Load("Sounds/Error");
 
-
         _normalMaterial = (Material)Resources.Load("Materials/Normal");
         _errorMaterial = (Material)Resources.Load("Materials/Error");
         _renderer = transform.GetComponent<Renderer>();
@@ -61,9 +60,14 @@ public class Placer : MonoBehaviour
 
         var mousePosition = Input.mousePosition;
         var mousePositionInWorld = Camera.main.ScreenToWorldPoint(mousePosition);
+        // Only consider x and y for bounds checks
+        mousePositionInWorld = new Vector3(mousePositionInWorld.x, mousePositionInWorld.y, Bounds.center.z);
+
+        var mouseOutOfBounds = !Bounds.Contains(mousePositionInWorld);
         var positionOfObjectInWorld = mousePositionInWorld;
 
-        if (!Bounds.Contains(positionOfObjectInWorld))
+
+        if (mouseOutOfBounds)
         {
             positionOfObjectInWorld = Bounds.ClosestPoint(positionOfObjectInWorld);
         }
@@ -74,7 +78,7 @@ public class Placer : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (Colliding)
+            if (Colliding || mouseOutOfBounds)
             {
                 if (!_audioSource.isPlaying)
                 {
