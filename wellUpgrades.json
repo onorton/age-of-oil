@@ -1,0 +1,57 @@
+{
+    "Upgrades": [
+        {
+            "Name": "Improved Pump",
+            "Description": "Allow more workers to drive the pump, increasing extraction rate",
+            "Price": 1000,
+            "Effects": [
+                {
+                    "EffectType": 2,
+                    "Amount": 1.1
+                }
+            ],
+            "Predecessors": []
+        },
+        {
+            "Name": "Narrower Bore Hole",
+            "Description": "It's easier to drill deeper if you can displace less earth. Maximum depth increased by 500ft.",
+            "Price": 1000,
+            "Effects": [
+                {
+                    "EffectType": 1,
+                    "Amount": 500
+                }
+            ],
+            "Predecessors": []
+        },
+        {
+            "Name": "Animal-Powered Pump",
+            "Description": "It's much easier to leave this work to livestock",
+            "Price": 3000,
+            "Effects": [
+                {
+                    "EffectType": 2,
+                    "Amount": 1.5
+                }
+            ],
+            "Predecessors": [
+                "Improved Pump"
+            ]
+        },
+        {
+            "Name": "Coal-Fired Pump",
+            "Description": "We can use other fuel to drive this pump. Brilliant!",
+            "Price": 5000,
+            "Effects": [
+                {
+                    "EffectType": 2,
+                    "Amount": 1.5
+                }
+            ],
+            "Predecessors": [
+                "Improved Pump",
+                "Animal-Powered Pump"
+            ]
+        }
+    ]
+}

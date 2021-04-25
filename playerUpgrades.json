@@ -1,0 +1,40 @@
+{
+    "Upgrades": [
+        {
+            "Name": "Improved Diagnostics: Accidents",
+            "Description": "More accurate readings make it easier to tell how likely an oil well is to blow. Blowout chance for oil wells visible.",
+            "Price": 10000,
+            "Effects": [
+                {
+                    "EffectType": 4,
+                    "Amount": 0
+                }
+            ],
+            "Predecessors": []
+        },
+        {
+            "Name": "Pressure Control",
+            "Description": "It is now possible for us to control the pressure down there, leading to reduced risk of accidents. Reduces chance of blowout by half.",
+            "Price": 30000,
+            "Effects": [
+                {
+                    "EffectType": 3,
+                    "Amount": 0.5
+                }
+            ],
+            "Predecessors": []
+        },
+        {
+            "Name": "Expert Prospectors",
+            "Description": "You're now able to hire some expert prospectors. Better accuracy when prospecting regions.",
+            "Price": 30000,
+            "Effects": [
+                {
+                    "EffectType": 5,
+                    "Amount": 2
+                }
+            ],
+            "Predecessors": []
+        }
+    ]
+}
