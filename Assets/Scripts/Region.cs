@@ -23,8 +23,8 @@ public class Region : MonoBehaviour
 
     public string _regionName = "Westlands";
 
-    private int oilWellCost = 20000;
-    private int prospectingCost = 2000;
+    private int oilWellCost = 5000;
+    private int prospectingCost = 500;
 
     // Start is called before the first frame update
     void Start()

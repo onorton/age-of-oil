@@ -13,6 +13,20 @@
             "Predecessors": []
         },
         {
+            "Name": "Amateur Prospectors",
+            "Description": "You have hired some of the locals who purport to be prospectors. You've heard they're pretty good. Slightly improved prospecting.",
+            "Price": 15000,
+            "Effects": [
+                {
+                    "EffectType": 5,
+                    "Amount": 1.2
+                }
+            ],
+            "Predecessors": [
+                "Profession Prospectors"
+            ]
+        },
+        {
             "Name": "Pressure Control",
             "Description": "It is now possible for us to control the pressure down there, leading to reduced risk of accidents. Reduces chance of blowout by half.",
             "Price": 30000,
@@ -27,11 +41,25 @@
         {
             "Name": "Expert Prospectors",
             "Description": "You're now able to hire some expert prospectors. Better accuracy when prospecting regions.",
-            "Price": 30000,
+            "Price": 60000,
             "Effects": [
                 {
                     "EffectType": 5,
-                    "Amount": 2
+                    "Amount": 1.5
+                }
+            ],
+            "Predecessors": [
+                "Amateur Prospectors"
+            ]
+        },
+        {
+            "Name": "Pipelines",
+            "Description": "Make it easier to transport your oil to buys. You're able to sell oil at a higher profit.",
+            "Price": 100000,
+            "Effects": [
+                {
+                    "EffectType": 6,
+                    "Amount": 1.5
                 }
             ],
             "Predecessors": []

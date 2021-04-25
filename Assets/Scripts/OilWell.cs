@@ -11,7 +11,7 @@ using System.Linq;
 public class OilWell : MonoBehaviour
 {
     // Barrels in game time days
-    private double _barrelsPerDay = 20.0;
+    private double _barrelsPerDay = 50.0;
     private PlayerStatus _playerStatus;
     private GameObject _statusUi;
     private GameObject _statusPanel;
@@ -24,7 +24,7 @@ public class OilWell : MonoBehaviour
     // Chance per second
     private double _blowoutChance = 0.01;
     // Per 100 feet
-    private double _blowoutChanceFactor = 1.1;
+    private double _blowoutChanceFactor = 1.2;
     public Sprite BlowoutSprite;
     private AudioSource _audioSource;
     private AudioClip _blowoutSound;
@@ -62,7 +62,7 @@ public class OilWell : MonoBehaviour
 
         var depthIncreaseUpgrade = transform.Find("DepthIncreaser").GetComponent<Upgrade>();
         depthIncreaseUpgrade.activated.AddListener(() => ApplyUpgrade(depthIncreaseUpgrade));
-        depthIncreaseUpgrade.SetPrice(1200);
+        depthIncreaseUpgrade.SetPrice(300);
         depthIncreaseUpgrade.Name = "Increase Depth";
         depthIncreaseUpgrade.Effects = new Effect[] { new Effect { EffectType = EffectType.IncreaseCurrentDepth, Amount = 100 }, new Effect { EffectType = EffectType.ChangeBlowoutChance, Amount = _blowoutChanceFactor } };
     }
@@ -103,7 +103,6 @@ public class OilWell : MonoBehaviour
             }
         }
         _timePassed = newTime;
-
 
         triedToFindOil.Invoke(_barrelsPerDay * Time.deltaTime * TimeSystem.TimeScale / (24 * 3600), _currentDepth);
     }
@@ -163,7 +162,6 @@ public class OilWell : MonoBehaviour
                     break;
                 case EffectType.ChangeBlowoutChance:
                     _blowoutChance *= effect.Amount;
-                    Debug.Log(_blowoutChance);
                     break;
                 default:
                     throw new Exception("Not a valid enum value");

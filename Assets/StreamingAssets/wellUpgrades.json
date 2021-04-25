@@ -3,7 +3,7 @@
         {
             "Name": "Improved Pump",
             "Description": "Allow more workers to drive the pump, increasing extraction rate",
-            "Price": 1000,
+            "Price": 2000,
             "Effects": [
                 {
                     "EffectType": 2,
@@ -14,12 +14,12 @@
         },
         {
             "Name": "Narrower Bore Hole",
-            "Description": "It's easier to drill deeper if you can displace less earth. Maximum depth increased by 500ft.",
-            "Price": 1000,
+            "Description": "It's easier to drill deeper if you can displace less earth. Maximum depth increased by 300ft.",
+            "Price": 3000,
             "Effects": [
                 {
                     "EffectType": 1,
-                    "Amount": 500
+                    "Amount": 300
                 }
             ],
             "Predecessors": []
@@ -27,11 +27,11 @@
         {
             "Name": "Animal-Powered Pump",
             "Description": "It's much easier to leave this work to livestock",
-            "Price": 3000,
+            "Price": 4500,
             "Effects": [
                 {
                     "EffectType": 2,
-                    "Amount": 1.5
+                    "Amount": 1.25
                 }
             ],
             "Predecessors": [
@@ -41,17 +41,29 @@
         {
             "Name": "Coal-Fired Pump",
             "Description": "We can use other fuel to drive this pump. Brilliant!",
-            "Price": 5000,
+            "Price": 7500,
             "Effects": [
                 {
                     "EffectType": 2,
-                    "Amount": 1.5
+                    "Amount": 2
                 }
             ],
             "Predecessors": [
                 "Improved Pump",
                 "Animal-Powered Pump"
             ]
+        },
+        {
+            "Name": "Steel Oil Derrick",
+            "Description": "A sturdier structure makes it possible to support more powerful drilling equipment. Maximum depth increased by 500ft.",
+            "Price": 10000,
+            "Effects": [
+                {
+                    "EffectType": 1,
+                    "Amount": 500
+                }
+            ],
+            "Predecessors": []
         }
     ]
 }

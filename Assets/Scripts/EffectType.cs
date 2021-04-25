@@ -10,5 +10,6 @@ public enum EffectType
     ChangeBlowoutChance,
     EnableBlowoutChanceVisibility,
     ChangeProspectingAccuracy,
+    ChangePricePerBarrel
 
 }

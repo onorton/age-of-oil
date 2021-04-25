@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class PlayerStatus : MonoBehaviour
 {
     // Start is called before the first frame update
-    private double money = 80000;
-    private double moneyPerBarrel = 10.0;
+    private double money = 15000;
+    public double MoneyPerBarrel { get; set; } = 10.0;
 
     public bool CanSeeBlowoutChance { get; set; }
     public double OverallBlowoutChanceFactor { get; set; } = 1.0;
@@ -68,12 +68,23 @@ public class PlayerStatus : MonoBehaviour
                 case EffectType.ChangeProspectingAccuracy:
                     ProspectingAccuracy = Math.Min(effect.Amount * ProspectingAccuracy, 1.0);
                     break;
+                case EffectType.ChangePricePerBarrel:
+                    MoneyPerBarrel = effect.Amount * MoneyPerBarrel;
+                    break;
                 default:
                     throw new Exception("Not a valid enum value");
 
             }
         }
         _upgrades.Remove(upgrade.Name);
+        // Apply any predecessors and destroy them;
+        foreach (var p in upgrade.Predecessors)
+        {
+            if (_upgrades.TryGetValue(p, out var predecessor))
+            {
+                predecessor.Consume();
+            }
+        }
         upgradeApplied.Invoke();
 
         if (_upgrades.Count == 0)
@@ -93,7 +104,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void SellOil(double barrels)
     {
-        money += barrels * moneyPerBarrel;
+        money += barrels * MoneyPerBarrel;
         moneyChanged.Invoke(money);
     }
 
